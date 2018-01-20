@@ -13,6 +13,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 public class RNReactNativeImageDataPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+      System.out.println("RNReactNativeImageDataPackage createNativeModules");
       return Arrays.<NativeModule>asList(new RNReactNativeImageDataModule(reactContext));
     }
 

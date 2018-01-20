@@ -23,6 +23,7 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
   public RNReactNativeImageDataModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+    System.out.println("RNReactNativeImageDataModule constructor");
   }
 
   @Override
