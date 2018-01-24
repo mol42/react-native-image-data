@@ -1,5 +1,8 @@
 package com.mol42.imagedata;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 public class ESCPOSApi {
 
     private final byte[] INITIALIZE_PRINTER = new byte[]{0x1B,0x40};
@@ -138,7 +141,6 @@ public class ESCPOSApi {
             for (int i=0; i<imageDataLine.length; i++) {
                 hexBuffer.append(Integer.toHexString(imageDataLine[i]));
             }
-            // hexBuffer.append(imageDataLine);
             offset += 24;
             hexBuffer.append(PRINT_AND_FEED_PAPER_HEX);
         }
