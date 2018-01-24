@@ -86,6 +86,10 @@ public class EscPosApiv2 {
     g = (color >> 8) & 0xff;
     b = color & 0xff;
 
+    if (r > 127) {
+        System.out.println("r :" + r + " g : " + g + " b: " + b);
+    }
+
     luminance = (int) (0.299 * r + 0.587 * g + 0.114 * b);
 
     return luminance < threshold;
