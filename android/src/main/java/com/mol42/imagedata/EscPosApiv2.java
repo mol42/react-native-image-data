@@ -25,7 +25,7 @@ public class EscPosApiv2 {
       
       byte[] bytes = new byte[]{(byte) (0x00ff & pixels[y].length), (byte) ((0xff00 & pixels[y].length) >> 8)};
 
-      for (int i=0; i<bytes.length; i++) {
+      for (int i=0; i < bytes.length; i++) {
           buf.append(Integer.toHexString(bytes[i]));
       }
       // printPort.writeBytes(new byte[]{(byte) (0x00ff & pixels[y].length), (byte) ((0xff00 & pixels[y].length) >> 8)});// width, low & high
@@ -61,6 +61,9 @@ public class EscPosApiv2 {
       for (int col = 0; col < width; col++) {
         // result[row][col] = image.getRGB(col, row);
         result[row][col] = image.getPixel(col, row);
+        if (row % 10 == 0) {
+            System.out.println("result[row][col] : " + result[row][col]);
+        }
       }
     }
 
