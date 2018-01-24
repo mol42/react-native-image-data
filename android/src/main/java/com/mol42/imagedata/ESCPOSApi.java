@@ -43,6 +43,7 @@ public class ESCPOSApi {
         }
         //System.arraycopy(command, 0, posCommand, 0, command.length);
         //System.arraycopy(args, 0, posCommand, command.length, args.length);
+        System.out.println("buildPOSCommandHex " + buf.toString());
         return buf.toString();
     }
 
@@ -61,9 +62,9 @@ public class ESCPOSApi {
                 int  green = (color & 0x0000ff00) >> 8;
                 int  blue = color & 0x000000ff;
                 int luminance = (int)(red * 0.3 + green * 0.59 + blue * 0.11);
-                System.out.println("luminance ->" + luminance);
+                // System.out.println("luminance ->" + luminance);
                 // imageBitsData.set(index, (luminance < threshold));
-                imageBitsData.set(index, luminance > 0);
+                imageBitsData.set(index, luminance < 127);
                 index++;
             }
         }
