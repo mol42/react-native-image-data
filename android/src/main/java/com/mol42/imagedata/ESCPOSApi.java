@@ -64,7 +64,7 @@ public class ESCPOSApi {
                 int luminance = (int)(red * 0.3 + green * 0.59 + blue * 0.11);
                 // System.out.println("luminance ->" + luminance);
                 // imageBitsData.set(index, (luminance < threshold));
-                imageBitsData.set(index, luminance < 127);
+                imageBitsData.set(index, luminance <= 127);
                 index++;
             }
         }
