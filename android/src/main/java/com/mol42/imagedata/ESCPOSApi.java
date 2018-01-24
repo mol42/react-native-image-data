@@ -2,6 +2,7 @@ package com.mol42.imagedata;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import java.util.BitSet;
 
 public class ESCPOSApi {
 
