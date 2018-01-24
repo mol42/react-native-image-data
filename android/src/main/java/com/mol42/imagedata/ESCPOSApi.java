@@ -61,8 +61,8 @@ public class ESCPOSApi {
                 int  green = (color & 0x0000ff00) >> 8;
                 int  blue = color & 0x000000ff;
                 int luminance = (int)(red * 0.3 + green * 0.59 + blue * 0.11);
-                //dots[index] = (luminance < threshold);
-                imageBitsData.set(index, (luminance < threshold));
+                // imageBitsData.set(index, (luminance < threshold));
+                imageBitsData.set(index, luminance > 0);
                 index++;
             }
         }
@@ -76,7 +76,8 @@ public class ESCPOSApi {
         BitSet imageBits = getBitsImageData(image);
 
         byte widthLSB = (byte)(image.getWidth() & 0xFF);
-        byte widthMSB = (byte)((image.getWidth() >> 16) & 0xFF);
+        //byte widthMSB = (byte)((image.getWidth() >> 16) & 0xFF);
+        byte widthMSB = (byte)((image.getWidth() >> 8) & 0xFF);
 
         // COMMANDS
         String selectBitImageModeCommand = buildPOSCommandHex(SELECT_BIT_IMAGE_MODE_HEX, Integer.toHexString((byte) 33), Integer.toHexString(widthLSB), Integer.toHexString(widthMSB));
