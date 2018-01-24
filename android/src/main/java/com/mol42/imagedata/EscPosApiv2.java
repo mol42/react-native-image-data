@@ -18,10 +18,13 @@ public class EscPosApiv2 {
     StringBuffer buf = new StringBuffer();
     // printPort.writeBytes(SET_LINE_SPACE_24);
     buf.append("SET_LINE_SPACE_24");
+    System.out.println("pixels.length : " + pixels.length);
     for (int y = 0; y < pixels.length; y += 24) {
       //printPort.writeBytes(SELECT_BIT_IMAGE_MODE);// bit mode
       buf.append("SELECT_BIT_IMAGE_MODE");
+      
       byte[] bytes = new byte[]{(byte) (0x00ff & pixels[y].length), (byte) ((0xff00 & pixels[y].length) >> 8)};
+
       for (int i=0; i<bytes.length; i++) {
           buf.append(Integer.toHexString(bytes[i]));
       }
@@ -36,6 +39,7 @@ public class EscPosApiv2 {
         }
       }
       buf.append("PrinterCommands.FEED_LINE");
+      System.out.println("PrinterCommands.FEED_LINE");
       //printPort.writeBytes(PrinterCommands.FEED_LINE);
     }
     // printPort.writeBytes(SET_LINE_SPACE_30);
