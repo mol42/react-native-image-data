@@ -80,7 +80,9 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
         return;
       }
 
-      String escPosCommand = new ESCPOSApi().buildPrintImageCommand(bitmap);
+      EscPosApiv2 escApi = new EscPosApiv2();
+      int[][] imageBytes = escApi.getPixelsSlow(bitmap);
+      String command = escApi.printImage(imageBytes);
       result.putString("command", escPosCommand);
 
       promise.resolve(result);
