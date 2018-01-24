@@ -25,15 +25,6 @@ public class ESCPOSApi {
     public ESCPOSApi() {
     }
 
-    private byte[] buildPOSCommand(byte[] command, byte... args) {
-        byte[] posCommand = new byte[command.length + args.length];
-
-        System.arraycopy(command, 0, posCommand, 0, command.length);
-        System.arraycopy(args, 0, posCommand, command.length, args.length);
-
-        return posCommand;
-    }
-
     private String buildPOSCommandHex(String command, String... args) {
         StringBuffer buf = new StringBuffer();
         //byte[] posCommand = new String[command.length + args.length];
@@ -78,7 +69,6 @@ public class ESCPOSApi {
         BitSet imageBits = getBitsImageData(image);
 
         byte widthLSB = (byte)(image.getWidth() & 0xFF);
-        //byte widthMSB = (byte)((image.getWidth() >> 16) & 0xFF);
         byte widthMSB = (byte)((image.getWidth() >> 8) & 0xFF);
 
         // COMMANDS
@@ -90,7 +80,9 @@ public class ESCPOSApi {
         hexBuffer.append(setLineSpacing24Dots);
 
         int offset = 0;
+        System.out.println("image.getHeight() : " + image.getHeight());
         while (offset < image.getHeight()) {
+            System.out.println("selectBitImageModeCommand : " + selectBitImageModeCommand);
             hexBuffer.append(selectBitImageModeCommand);
 
             int imageDataLineIndex = 0;
