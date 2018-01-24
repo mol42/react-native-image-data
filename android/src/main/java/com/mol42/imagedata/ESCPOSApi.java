@@ -79,12 +79,12 @@ public class ESCPOSApi {
         String setLineSpacing24Dots = buildPOSCommandHex(SET_LINE_SPACING_HEX, Integer.toHexString((byte) 24));
         String setLineSpacing30Dots = buildPOSCommandHex(SET_LINE_SPACING_HEX, Integer.toHexString((byte) 30));
 
-        hexBuffer.write(INITIALIZE_PRINTER_HEX);
-        hexBuffer.write(setLineSpacing24Dots);
+        hexBuffer.append(INITIALIZE_PRINTER_HEX);
+        hexBuffer.append(setLineSpacing24Dots);
 
         int offset = 0;
         while (offset < image.getHeight()) {
-            hexBuffer.push(selectBitImageModeCommand);
+            hexBuffer.append(selectBitImageModeCommand);
 
             int imageDataLineIndex = 0;
             byte[] imageDataLine = new byte[3 * image.getWidth()];
@@ -136,14 +136,14 @@ public class ESCPOSApi {
             }
 
             for (int i=0; i<imageDataLine.length; i++) {
-                hexBuffer.push(Integer.toHexString(imageDataLine[i]));
+                hexBuffer.append(Integer.toHexString(imageDataLine[i]));
             }
-            // hexBuffer.push(imageDataLine);
+            // hexBuffer.append(imageDataLine);
             offset += 24;
-            hexBuffer.push(PRINT_AND_FEED_PAPER_HEX);
+            hexBuffer.append(PRINT_AND_FEED_PAPER_HEX);
         }
 
-        hexBuffer.push(setLineSpacing30Dots);
+        hexBuffer.append(setLineSpacing30Dots);
 
         return hexBuffer.toString();
     }
