@@ -15,7 +15,7 @@ public class EscPosApiv2 {
    * @param pixels 2D Array of RGB colors (Row major order)
    */
   public String printImage(int[][] pixels) {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
     // printPort.writeBytes(SET_LINE_SPACE_24);
     buf.append("SET_LINE_SPACE_24");
     System.out.println("pixels.length : " + pixels.length);
