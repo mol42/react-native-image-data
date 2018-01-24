@@ -66,6 +66,28 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
     } catch (Exception e) {
       promise.reject(e);
     }
+  }
 
-  }  
+  @ReactMethod
+  public void getESCPosCommand(String filePath, final Promise promise) {
+    try {
+      WritableNativeMap result = new WritableNativeMap();
+      WritableNativeArray pixels = new WritableNativeArray();
+
+      Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+      if (bitmap == null) {
+        promise.reject("Failed to decode. Path is incorrect or image is corrupted");
+        return;
+      }
+
+      String escPosCommand = new ESCPOSApi().buildPrintImageCommand(bitmap);
+      result.putString("command", escPosCommand);
+
+      promise.resolve(result);
+
+    } catch (Exception e) {
+      promise.reject(e);
+    }
+  }
+
 }
