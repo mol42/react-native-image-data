@@ -2,6 +2,8 @@ package com.mol42.imagedata;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import android.graphics.Color;
 import java.util.BitSet;
 
 public class EscPosApiv2 {
@@ -34,6 +36,7 @@ public class EscPosApiv2 {
         // For each vertical line/slice must collect 3 bytes (24 bytes)
         //printPort.writeBytes(collectSlice(y, x, pixels));
         byte[] collectedBytes = collectSlice(y, x, pixels);
+        System.out.println("collectedBytes.length : " + collectedBytes.length);
         for (int j = 0; j < collectedBytes.length; j++) {
             buf.append(Integer.toHexString(collectedBytes[j]));
         }
@@ -59,11 +62,7 @@ public class EscPosApiv2 {
     int[][] result = new int[height][width];
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
-        // result[row][col] = image.getRGB(col, row);
         result[row][col] = image.getPixel(col, row);
-        if (row % 10 == 0) {
-            System.out.println("result[row][col] : " + result[row][col]);
-        }
       }
     }
 
@@ -78,6 +77,8 @@ public class EscPosApiv2 {
   public boolean shouldPrintColor(int color) {
     final int threshold = 127;
     int a, r, g, b, luminance;
+
+    /*
     a = (color >> 24) & 0xff;
     if (a != 0xff) { // ignore pixels with alpha channel
       return false;
@@ -85,12 +86,17 @@ public class EscPosApiv2 {
     r = (color >> 16) & 0xff;
     g = (color >> 8) & 0xff;
     b = color & 0xff;
+    */
+    r = Color.red(color);
+    g = Color.green(color);
+    b = Color.blue(blue);
+    
+    luminance = (int) (0.299 * r + 0.587 * g + 0.114 * b);
 
     if (r > 127) {
         System.out.println("r :" + r + " g : " + g + " b: " + b);
+        System.out.println("luminance " + luminance);
     }
-
-    luminance = (int) (0.299 * r + 0.587 * g + 0.114 * b);
 
     return luminance < threshold;
   }
