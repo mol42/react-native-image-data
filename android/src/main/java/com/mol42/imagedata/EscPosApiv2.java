@@ -32,7 +32,7 @@ public class EscPosApiv2 {
         //printPort.writeBytes(collectSlice(y, x, pixels));
         byte[] collectedBytes = collectSlice(y, x, pixels);
         for (int j = 0; j < collectedBytes.length; j++) {
-            buf.append(Integer.toHexString(collectedBytes[i]));
+            buf.append(Integer.toHexString(collectedBytes[j]));
         }
       }
       buf.append("PrinterCommands.FEED_LINE");
