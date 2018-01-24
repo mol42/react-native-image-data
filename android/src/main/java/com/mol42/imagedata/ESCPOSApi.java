@@ -53,9 +53,7 @@ public class ESCPOSApi {
                 int  green = (color & 0x0000ff00) >> 8;
                 int  blue = color & 0x000000ff;
                 int luminance = (int)(red * 0.3 + green * 0.59 + blue * 0.11);
-                // System.out.println("luminance ->" + luminance);
-                // imageBitsData.set(index, (luminance < threshold));
-                imageBitsData.set(index, luminance <= 127);
+                imageBitsData.set(index, luminance > 127);
                 index++;
             }
         }
@@ -83,7 +81,7 @@ public class ESCPOSApi {
         System.out.println("image.getHeight() : " + image.getHeight());
         while (offset < image.getHeight()) {
             System.out.println("selectBitImageModeCommand : " + selectBitImageModeCommand);
-            hexBuffer.append(selectBitImageModeCommand);
+            hexBuffer.append(new String(selectBitImageModeCommand));
 
             int imageDataLineIndex = 0;
             byte[] imageDataLine = new byte[3 * image.getWidth()];
@@ -134,7 +132,7 @@ public class ESCPOSApi {
                 imageDataLineIndex += 3;
             }
 
-            for (int i=0; i<imageDataLine.length; i++) {
+            for (int i=0; i < imageDataLine.length; i++) {
                 hexBuffer.append(Integer.toHexString(imageDataLine[i]));
             }
             offset += 24;
