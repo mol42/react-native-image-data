@@ -14,7 +14,7 @@ public class EscPosApiv2 {
    * 
    * @param pixels 2D Array of RGB colors (Row major order)
    */
-  private String printImage(int[][] pixels) {
+  public String printImage(int[][] pixels) {
     StringBuffer buf = new StringBuffer();
     // printPort.writeBytes(SET_LINE_SPACE_24);
     buf.append("SET_LINE_SPACE_24");
@@ -49,7 +49,7 @@ public class EscPosApiv2 {
    * @param image image to get pixels from.
    * @return 2D array of pixels of the image (RGB, row major order)
    */
-  private int[][] getPixelsSlow(Bitmap image) {
+  public int[][] getPixelsSlow(Bitmap image) {
     int width = image.getWidth();
     int height = image.getHeight();
     int[][] result = new int[height][width];
@@ -68,7 +68,7 @@ public class EscPosApiv2 {
    * @param color RGB color.
    * @return true if should be printed/burned (black), false otherwise (white).
    */
-  private boolean shouldPrintColor(int color) {
+  public boolean shouldPrintColor(int color) {
     final int threshold = 127;
     int a, r, g, b, luminance;
     a = (color >> 24) & 0xff;
@@ -91,7 +91,7 @@ public class EscPosApiv2 {
    * @param img 2D array of pixels of the image (RGB, row major order).
    * @return 3 byte array with 24 dots (field set).
    */
-  private byte[] collectSlice(int y, int x, int[][] img) {
+  public byte[] collectSlice(int y, int x, int[][] img) {
     byte[] slices = new byte[]{0, 0, 0};
     for (int yy = y, i = 0; yy < y + 24 && i < 3; yy += 8, i++) {// va a hacer 3 ciclos
       byte slice = 0;
