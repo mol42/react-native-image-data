@@ -89,7 +89,7 @@ public class EscPosApiv2 {
     */
     r = Color.red(color);
     g = Color.green(color);
-    b = Color.blue(blue);
+    b = Color.blue(color);
     
     luminance = (int) (0.299 * r + 0.587 * g + 0.114 * b);
 
