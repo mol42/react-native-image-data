@@ -94,7 +94,7 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
           int color = bitmap.getPixel(x, y);
           int r = Color.red(color);
           int g = Color.green(color);
-          int b = Color.blue(blue);
+          int b = Color.blue(color);
     
           int luminance = (int) (0.299 * r + 0.587 * g + 0.114 * b);
 
