@@ -69,7 +69,7 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void getSimpleGrayscalePixels(String filePath, final Promise promise) {
+  public void getSimpleGrayscalePixels(String filePath, Integer maxWidth, Integer maxHeight,  final Promise promise) {
     try {
       final int threshold = 127;
 
@@ -81,6 +81,8 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
         promise.reject("Failed to decode. Path is incorrect or image is corrupted");
         return;
       }
+
+      bitmap = this.getResizedBitmap(bitmap, maxWidth, maxHeight);
 
       int width = bitmap.getWidth();
       int height = bitmap.getHeight();
@@ -108,6 +110,23 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
       promise.reject(e);
     }
   }  
+
+  public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+    int width = bm.getWidth();
+    int height = bm.getHeight();
+    float scaleWidth = ((float) newWidth) / width;
+    float scaleHeight = ((float) newHeight) / height;
+    // CREATE A MATRIX FOR THE MANIPULATION
+    Matrix matrix = new Matrix();
+    // RESIZE THE BIT MAP
+    matrix.postScale(scaleWidth, scaleHeight);
+
+    // "RECREATE" THE NEW BITMAP
+    Bitmap resizedBitmap = Bitmap.createBitmap(
+        bm, 0, 0, width, height, matrix, false);
+    bm.recycle();
+    return resizedBitmap;
+  }
 
   @ReactMethod
   public void getESCPosCommand(String filePath, final Promise promise) {
