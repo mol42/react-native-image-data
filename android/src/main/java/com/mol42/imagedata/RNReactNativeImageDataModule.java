@@ -14,6 +14,8 @@ import com.facebook.react.bridge.WritableNativeMap;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import android.graphics.Matrix;
+
 import java.io.IOException;
 
 public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
@@ -96,7 +98,7 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
     
           int luminance = (int) (0.299 * r + 0.587 * g + 0.114 * b);
 
-          pixels.push(luminance < threshold ? "0" : "1");
+          pixels.pushString(luminance < threshold ? "0" : "1");
         }
       }
 
