@@ -69,6 +69,47 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void getSimpleGrayscalePixels(String filePath, final Promise promise) {
+    try {
+      final int threshold = 127;
+
+      WritableNativeMap result = new WritableNativeMap();
+      WritableNativeArray pixels = new WritableNativeArray();
+
+      Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+      if (bitmap == null) {
+        promise.reject("Failed to decode. Path is incorrect or image is corrupted");
+        return;
+      }
+
+      int width = bitmap.getWidth();
+      int height = bitmap.getHeight();
+
+      for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+          int color = bitmap.getPixel(x, y);
+          int r = Color.red(color);
+          int g = Color.green(color);
+          int b = Color.blue(blue);
+    
+          int luminance = (int) (0.299 * r + 0.587 * g + 0.114 * b);
+
+          pixels.push(luminance < threshold ? "0" : "1");
+        }
+      }
+
+      result.putInt("width", width);
+      result.putInt("height", height);
+      result.putArray("pixels", pixels);
+
+      promise.resolve(result);
+
+    } catch (Exception e) {
+      promise.reject(e);
+    }
+  }  
+
+  @ReactMethod
   public void getESCPosCommand(String filePath, final Promise promise) {
     try {
       WritableNativeMap result = new WritableNativeMap();
