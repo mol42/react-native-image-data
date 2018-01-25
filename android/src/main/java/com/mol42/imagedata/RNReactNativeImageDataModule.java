@@ -13,7 +13,7 @@ import com.facebook.react.bridge.WritableNativeMap;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
+import android.graphics.Color;
 import android.graphics.Matrix;
 
 import java.io.IOException;
