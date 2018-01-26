@@ -25,7 +25,6 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
   public RNReactNativeImageDataModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-    System.out.println("RNReactNativeImageDataModule constructor");
   }
 
   @Override
@@ -113,7 +112,7 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
     }
   }  
 
-  public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+  private Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
     int width = bm.getWidth();
     int height = bm.getHeight();
     float scaleWidth = ((float) newWidth) / width;
@@ -128,31 +127,6 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
         bm, 0, 0, width, height, matrix, false);
     bm.recycle();
     return resizedBitmap;
-  }
-
-  @ReactMethod
-  public void getESCPosCommand(String filePath, final Promise promise) {
-    try {
-      WritableNativeMap result = new WritableNativeMap();
-      WritableNativeArray pixels = new WritableNativeArray();
-
-      Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-      if (bitmap == null) {
-        promise.reject("Failed to decode. Path is incorrect or image is corrupted");
-        return;
-      }
-
-      EscPosApiv2 escApi = new EscPosApiv2();
-      int[][] imageBytes = escApi.getPixelsSlow(bitmap);
-      String escPosCommand = escApi.printImage(imageBytes);
-      System.out.println("escPosCommand : " + escPosCommand);
-      result.putString("command", escPosCommand);
-
-      promise.resolve(result);
-
-    } catch (Exception e) {
-      promise.reject(e);
-    }
   }
 
 }
