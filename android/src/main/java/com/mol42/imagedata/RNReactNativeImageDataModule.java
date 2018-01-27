@@ -69,6 +69,8 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
         dataResult.putArray("pixels", pixels);
         this.sendEvent(reactContext, "onReadData", dataResult);
       }
+
+      this.sendEvent(reactContext, "onReadComplete");
     } catch (Exception e) {
       WritableNativeMap result = new WritableNativeMap();
       result.putString("data", e.getMessage());
