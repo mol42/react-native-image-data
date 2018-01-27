@@ -69,6 +69,7 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
 
         dataResult.putArray("pixels", pixels);
         this.sendEvent(reactContext, "onReadData", dataResult);
+        Thread.sleep(200);
       }
 
       this.sendEvent(reactContext, "onReadComplete", null);
