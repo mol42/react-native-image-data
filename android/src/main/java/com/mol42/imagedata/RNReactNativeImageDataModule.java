@@ -141,7 +141,7 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
 
   private void sendEvent(ReactContext reactContext,
                        String eventName,
-                       @Nullable WritableMap params) {
+                       @Nullable WritableNativeMap params) {
     reactContext
         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
         .emit(eventName, params);
