@@ -70,7 +70,7 @@ public class RNReactNativeImageDataModule extends ReactContextBaseJavaModule {
         this.sendEvent(reactContext, "onReadData", dataResult);
       }
 
-      this.sendEvent(reactContext, "onReadComplete");
+      this.sendEvent(reactContext, "onReadComplete", null);
     } catch (Exception e) {
       WritableNativeMap result = new WritableNativeMap();
       result.putString("data", e.getMessage());
