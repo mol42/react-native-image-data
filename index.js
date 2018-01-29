@@ -3,7 +3,7 @@ import { NativeModules, Platform } from 'react-native';
 
 const { RNReactNativeImageData } = NativeModules;
 
-let RNReactNativeImageDataWrapper = {
+const RNReactNativeImageDataWrapper = {
 
     getSimpleGrayscalePixels : (imagePath, {scaledWith, scaledHeight}) => {
         
