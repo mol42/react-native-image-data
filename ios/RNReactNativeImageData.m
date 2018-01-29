@@ -28,6 +28,7 @@ RCT_REMAP_METHOD(getSimpleGrayscalePixels,
         return;
     }
 
+    NSNumber *threshold = [NSNumber numberWithDouble:0.5];
     NSInteger maxWidth = [RCTConvert NSInteger:options[@"maxWidth"]];
     NSInteger maxHeight = [RCTConvert NSInteger:options[@"maxHeight"]];
     CGSize newSize = CGSizeMake(maxWidth, maxHeight);
@@ -38,11 +39,17 @@ RCT_REMAP_METHOD(getSimpleGrayscalePixels,
         for (int y = 0; y < maxHeight; y++) {
             CGPoint point = CGPointMake(x, y);
             UIColor *pixelColor = [scaledImage colorAtPixel:point];
-            NSString *hexString = hexStringForColor(pixelColor);
-            [pixels addObject:hexString];
+            CGFloat *components = CGColorGetComponents(pixelColor.CGColor);
+            CGFloat r = components[0];
+            CGFloat g = components[1];
+            CGFloat b = components[2];
+            NSNumber *luminanceFloat = [NSNumber numberWithDouble:((0.299 * r + 0.587 * g + 0.114 * b))];
+            // NSInteger luminance = [luminanceFloat intValue];
+            NSString *pixelString = [luminanceFloat doubleValue] < [threshold doubleValue] ? @"1" : @"0";
+            [pixels addObject:pixelString];
         }
     }
-    
+
     resolve(pixels);
 }
 
