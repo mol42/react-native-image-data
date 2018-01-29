@@ -13,7 +13,8 @@
 }
 RCT_EXPORT_MODULE()
 
-RCT_REMAP_METHOD(getSimpleGrayscalePixels:(NSString *)path
+RCT_REMAP_METHOD(getSimpleGrayscalePixels,
+                    path :(NSString *)path
                     options:(NSDictionary *)options,
                     findEventsWithResolver:(RCTPromiseResolveBlock)resolve
                     rejecter:(RCTPromiseRejectBlock)reject)
