@@ -59,7 +59,7 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
         
         //UIColor *pixelColor = [image colorAtPixel:point];
         //callback(@[[NSNull null], hexStringForColor(pixelColor)]);
-        resolve(null);
+        resolve(NULL);
     }];
 }
 
