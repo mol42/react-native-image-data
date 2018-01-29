@@ -60,7 +60,9 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
     
     //UIColor *pixelColor = [image colorAtPixel:point];
     //callback(@[[NSNull null], hexStringForColor(pixelColor)]);
-    resolve(pixels);
+    NSString *thingToReturn = @"Hello World!";
+    resolve(thingToReturn);
+    // resolve(@[[NSNull null], pixels);
 }
 
 NSString * hexStringForColor( UIColor* color ) {
