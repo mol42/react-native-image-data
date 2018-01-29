@@ -44,7 +44,6 @@ RCT_REMAP_METHOD(getSimpleGrayscalePixels,
             CGFloat g = components[1];
             CGFloat b = components[2];
             NSNumber *luminanceFloat = [NSNumber numberWithDouble:((0.299 * r + 0.587 * g + 0.114 * b))];
-            // NSInteger luminance = [luminanceFloat intValue];
             NSString *pixelString = [luminanceFloat doubleValue] < [threshold doubleValue] ? @"1" : @"0";
             [pixels addObject:pixelString];
         }
