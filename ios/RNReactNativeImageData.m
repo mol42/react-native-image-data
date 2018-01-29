@@ -35,10 +35,12 @@ RCT_REMAP_METHOD(getSimpleGrayscalePixels,
     NSMutableArray *pixels = [NSMutableArray array];
     
     for (int x = 0; x < maxWidth; x++) {
-        CGPoint point = CGPointMake(x, 0);
-        UIColor *pixelColor = [scaledImage colorAtPixel:point];
-        NSString *hexString = hexStringForColor(pixelColor);
-        [pixels addObject:hexString];
+        for (int y = 0; y < maxHeight; y++) {
+            CGPoint point = CGPointMake(x, 0);
+            UIColor *pixelColor = [scaledImage colorAtPixel:point];
+            NSString *hexString = hexStringForColor(pixelColor);
+            [pixels addObject:hexString];
+        }
     }
     /*
     if (options[@"width"] && options[@"height"]) {
