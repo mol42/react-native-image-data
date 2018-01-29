@@ -25,7 +25,7 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
             image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
 
             if (image == nil) {
-                NSError *error = @"image could not read";
+                NSError *error = [NSError errorWithDomain:@"com.mol42" code:500 userInfo:@{@"Error reason": @"Image could not be read"}];
                 reject(@"no_events", @"There were no events", error);
                 return;
             }
