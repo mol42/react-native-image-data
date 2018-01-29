@@ -13,7 +13,7 @@
 }
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
+RCT_REMAP_METHOD(getSimpleGrayscalePixels:(NSString *)path
                     options:(NSDictionary *)options
                     findEventsWithResolver:(RCTPromiseResolveBlock)resolve
                     rejecter:(RCTPromiseRejectBlock)reject)
@@ -38,6 +38,7 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
         UIColor *pixelColor = [image colorAtPixel:point];
         NSString *hexString = hexStringForColor(pixelColor);
         [pixels addObject:hexString];
+        NSLog(@"debug");
         /*
         for (int j = 0; j < maxHeight; j++) {
             
