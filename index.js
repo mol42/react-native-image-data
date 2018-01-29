@@ -5,12 +5,12 @@ const { RNReactNativeImageData } = NativeModules;
 
 const RNReactNativeImageDataWrapper = {
 
-    getSimpleGrayscalePixels : (imagePath, {scaledWith, scaledHeight}) => {
+    getSimpleGrayscalePixels : (imagePath, {scaledWidth, scaledHeight}) => {
         
         if (Platform.OS == "ios") {
-            return RNReactNativeImageData.getSimpleGrayscalePixels(imagePath, {scaledWith, scaledHeight});
+            return RNReactNativeImageData.getSimpleGrayscalePixels(imagePath, {scaledWidth, scaledHeight});
         } else {
-            return RNReactNativeImageData.getSimpleGrayscalePixels(imagePath, scaledWith, scaledHeight);
+            return RNReactNativeImageData.getSimpleGrayscalePixels(imagePath, scaledWidth, scaledHeight);
         }
     }
 }
