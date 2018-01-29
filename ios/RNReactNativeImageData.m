@@ -31,13 +31,13 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
     NSInteger maxHeight = [RCTConvert NSInteger:options[@"maxHeight"]];
     CGSize newSize = CGSizeMake(maxWidth, maxHeight);
     UIImage *scaledImage = [self scaleImage:image toSize:newSize];
+    NSMutableArray *pixels = [NSMutableArray array];
 
     for (int x = 0; x < maxWidth; x++) {
         CGPoint point = CGPointMake(x, 0);
         UIColor *pixelColor = [image colorAtPixel:point];
         NSString *hexString = hexStringForColor(pixelColor)
-        NSLog(@"hexString");
-        NSLog(hexString);
+        [pixels addObject:hexString];
         /*
         for (int j = 0; j < maxHeight; j++) {
             
@@ -60,7 +60,7 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
     
     //UIColor *pixelColor = [image colorAtPixel:point];
     //callback(@[[NSNull null], hexStringForColor(pixelColor)]);
-    resolve(NULL);
+    resolve(pixels);
 }
 
 NSString * hexStringForColor( UIColor* color ) {
