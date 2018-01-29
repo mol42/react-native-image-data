@@ -15,7 +15,7 @@ RCT_EXPORT_MODULE()
 
 RCT_REMAP_METHOD(getSimpleGrayscalePixels,
                     path :(NSString *)path
-                    options:(NSDictionary *)options,
+                    options:(NSDictionary *)options
                     findEventsWithResolver:(RCTPromiseResolveBlock)resolve
                     rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -34,12 +34,15 @@ RCT_REMAP_METHOD(getSimpleGrayscalePixels,
     UIImage *scaledImage = [self scaleImage:image toSize:newSize];
     NSMutableArray *pixels = [NSMutableArray array];
 
+    NSLog(@"maxWidth : %d", maxWidth);
+    NSLog(@"%d", scaledImage != NULL);
+    
     for (int x = 0; x < maxWidth; x++) {
         CGPoint point = CGPointMake(x, 0);
-        UIColor *pixelColor = [image colorAtPixel:point];
-        NSString *hexString = hexStringForColor(pixelColor);
-        [pixels addObject:hexString];
-        NSLog(@"debug");
+        UIColor *pixelColor = [scaledImage colorAtPixel:point];
+        //NSString *hexString = hexStringForColor(pixelColor);
+        //[pixels addObject:hexString];
+        //NSLog(scaledImage);
         /*
         for (int j = 0; j < maxHeight; j++) {
             
