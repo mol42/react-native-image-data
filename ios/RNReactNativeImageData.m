@@ -19,17 +19,17 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
                     rejecter:(RCTPromiseRejectBlock)reject)
 {
 
-    [_bridge.imageLoader loadImageWithURLRequest:[RCTConvert NSURLRequest:path] callback:^(NSError *error, UIImage *image) {
-        if (error || image == nil) { // if couldn't load from bridge create a new UIImage
-            NSURL *imageUrl = [[NSURL alloc] initWithString:path];
-            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
+   // [_bridge.imageLoader loadImageWithURLRequest:[RCTConvert NSURLRequest:path] callback:^(NSError *error, UIImage *image) {
+       // if (error || image == nil) { // if couldn't load from bridge create a new UIImage
+        NSURL *imageUrl = [[NSURL alloc] initWithString:path];
+        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
 
-            if (image == nil) {
-                NSError *error = [NSError errorWithDomain:@"com.mol42" code:500 userInfo:@{@"Error reason": @"Image could not be read"}];
-                reject(@"no_events", @"There were no events", error);
-                return;
-            }
+        if (image == nil) {
+            NSError *error = [NSError errorWithDomain:@"com.mol42" code:500 userInfo:@{@"Error reason": @"Image could not be read"}];
+            reject(@"no_events", @"There were no events", error);
+            return;
         }
+       // }
  
         NSInteger maxWidth = [RCTConvert NSInteger:options[@"maxWidth"]];
         NSInteger maxHeight = [RCTConvert NSInteger:options[@"maxHeight"]];
@@ -60,7 +60,7 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
         //UIColor *pixelColor = [image colorAtPixel:point];
         //callback(@[[NSNull null], hexStringForColor(pixelColor)]);
         resolve(NULL);
-    }];
+    //}];
 }
 
 NSString * hexStringForColor( UIColor* color ) {
