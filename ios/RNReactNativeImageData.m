@@ -63,7 +63,7 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
     }];
 }
 
-- NSString * hexStringForColor( UIColor* color ) {
+NSString * hexStringForColor( UIColor* color ) {
     const CGFloat *components = CGColorGetComponents(color.CGColor);
     CGFloat r = components[0];
     CGFloat g = components[1];
