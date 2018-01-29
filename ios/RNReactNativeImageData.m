@@ -29,14 +29,14 @@ RCT_REMAP_METHOD(getSimpleGrayscalePixels,
     }
 
     NSNumber *threshold = [NSNumber numberWithDouble:0.5];
-    NSInteger maxWidth = [RCTConvert NSInteger:options[@"maxWidth"]];
-    NSInteger maxHeight = [RCTConvert NSInteger:options[@"maxHeight"]];
-    CGSize newSize = CGSizeMake(maxWidth, maxHeight);
+    NSInteger scaledWidth = [RCTConvert NSInteger:options[@"scaledWidth"]];
+    NSInteger scaledHeight = [RCTConvert NSInteger:options[@"scaledHeight"]];
+    CGSize newSize = CGSizeMake(scaledWidth, scaledHeight);
     UIImage *scaledImage = [self scaleImage:image toSize:newSize];
     NSMutableArray *pixels = [NSMutableArray array];
     
-    for (int x = 0; x < maxWidth; x++) {
-        for (int y = 0; y < maxHeight; y++) {
+    for (int x = 0; x < scaledWidth; x++) {
+        for (int y = 0; y < scaledHeight; y++) {
             CGPoint point = CGPointMake(x, y);
             UIColor *pixelColor = [scaledImage colorAtPixel:point];
             CGFloat *components = CGColorGetComponents(pixelColor.CGColor);
