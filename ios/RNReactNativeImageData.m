@@ -22,7 +22,7 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
    // [_bridge.imageLoader loadImageWithURLRequest:[RCTConvert NSURLRequest:path] callback:^(NSError *error, UIImage *image) {
        // if (error || image == nil) { // if couldn't load from bridge create a new UIImage
         NSURL *imageUrl = [[NSURL alloc] initWithString:path];
-        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
 
         if (image == nil) {
             NSError *error = [NSError errorWithDomain:@"com.mol42" code:500 userInfo:@{@"Error reason": @"Image could not be read"}];
