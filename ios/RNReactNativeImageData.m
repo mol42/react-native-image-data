@@ -18,49 +18,49 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
                     findEventsWithResolver:(RCTPromiseResolveBlock)resolve
                     rejecter:(RCTPromiseRejectBlock)reject)
 {
+    NSURL *imageUrl = [[NSURL alloc] initWithString:path];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
 
-   // [_bridge.imageLoader loadImageWithURLRequest:[RCTConvert NSURLRequest:path] callback:^(NSError *error, UIImage *image) {
-       // if (error || image == nil) { // if couldn't load from bridge create a new UIImage
-        NSURL *imageUrl = [[NSURL alloc] initWithString:path];
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageUrl]];
+    if (image == nil) {
+        NSError *error = [NSError errorWithDomain:@"com.mol42" code:500 userInfo:@{@"Error reason": @"Image could not be read"}];
+        reject(@"no_events", @"There were no events", error);
+        return;
+    }
 
-        if (image == nil) {
-            NSError *error = [NSError errorWithDomain:@"com.mol42" code:500 userInfo:@{@"Error reason": @"Image could not be read"}];
-            reject(@"no_events", @"There were no events", error);
-            return;
-        }
-       // }
- 
-        NSInteger maxWidth = [RCTConvert NSInteger:options[@"maxWidth"]];
-        NSInteger maxHeight = [RCTConvert NSInteger:options[@"maxHeight"]];
-        CGSize newSize = CGSizeMake(maxWidth, maxHeight);
-        UIImage *scaledImage = [self scaleImage:image toSize:newSize];
+    NSInteger maxWidth = [RCTConvert NSInteger:options[@"maxWidth"]];
+    NSInteger maxHeight = [RCTConvert NSInteger:options[@"maxHeight"]];
+    CGSize newSize = CGSizeMake(maxWidth, maxHeight);
+    UIImage *scaledImage = [self scaleImage:image toSize:newSize];
 
+    for (int x = 0; x < maxWidth; x++) {
+        CGPoint point = CGPointMake(x, 0);
+        UIColor *pixelColor = [image colorAtPixel:point];
+        NSString *hexString = hexStringForColor(pixelColor)
+        NSLog(@"hexString");
+        NSLog(hexString);
         /*
-        for (int i = 0; i < maxWidth; i++) {
-            for (int j = 0; j < maxHeight; j++) {
-
-            }
-        }
-        */
-        /*
-        if (options[@"width"] && options[@"height"]) {
-            NSInteger scaledWidth = [RCTConvert NSInteger:options[@"width"]];
-            NSInteger scaledHeight = [RCTConvert NSInteger:options[@"height"]];
-            float originalWidth = image.size.width;
-            float originalHeight = image.size.height;
-            
-            x = x * (originalWidth / scaledWidth);
-            y = y * (originalHeight / scaledHeight);
+        for (int j = 0; j < maxHeight; j++) {
             
         }
         */
-        //CGPoint point = CGPointMake(x, y);
+    }
+    /*
+    if (options[@"width"] && options[@"height"]) {
+        NSInteger scaledWidth = [RCTConvert NSInteger:options[@"width"]];
+        NSInteger scaledHeight = [RCTConvert NSInteger:options[@"height"]];
+        float originalWidth = image.size.width;
+        float originalHeight = image.size.height;
         
-        //UIColor *pixelColor = [image colorAtPixel:point];
-        //callback(@[[NSNull null], hexStringForColor(pixelColor)]);
-        resolve(NULL);
-    //}];
+        x = x * (originalWidth / scaledWidth);
+        y = y * (originalHeight / scaledHeight);
+        
+    }
+    */
+    //CGPoint point = CGPointMake(x, y);
+    
+    //UIColor *pixelColor = [image colorAtPixel:point];
+    //callback(@[[NSNull null], hexStringForColor(pixelColor)]);
+    resolve(NULL);
 }
 
 NSString * hexStringForColor( UIColor* color ) {
