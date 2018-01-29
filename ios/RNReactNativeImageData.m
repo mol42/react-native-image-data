@@ -36,7 +36,7 @@ RCT_EXPORT_METHOD(getSimpleGrayscalePixels:(NSString *)path
     for (int x = 0; x < maxWidth; x++) {
         CGPoint point = CGPointMake(x, 0);
         UIColor *pixelColor = [image colorAtPixel:point];
-        NSString *hexString = hexStringForColor(pixelColor)
+        NSString *hexString = hexStringForColor(pixelColor);
         [pixels addObject:hexString];
         /*
         for (int j = 0; j < maxHeight; j++) {
