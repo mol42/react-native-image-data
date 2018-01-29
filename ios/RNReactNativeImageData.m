@@ -33,21 +33,12 @@ RCT_REMAP_METHOD(getSimpleGrayscalePixels,
     CGSize newSize = CGSizeMake(maxWidth, maxHeight);
     UIImage *scaledImage = [self scaleImage:image toSize:newSize];
     NSMutableArray *pixels = [NSMutableArray array];
-
-    NSLog(@"maxWidth : %d", maxWidth);
-    NSLog(@"%d", scaledImage != NULL);
     
     for (int x = 0; x < maxWidth; x++) {
         CGPoint point = CGPointMake(x, 0);
         UIColor *pixelColor = [scaledImage colorAtPixel:point];
-        //NSString *hexString = hexStringForColor(pixelColor);
-        //[pixels addObject:hexString];
-        //NSLog(scaledImage);
-        /*
-        for (int j = 0; j < maxHeight; j++) {
-            
-        }
-        */
+        NSString *hexString = hexStringForColor(pixelColor);
+        [pixels addObject:hexString];
     }
     /*
     if (options[@"width"] && options[@"height"]) {
@@ -65,9 +56,9 @@ RCT_REMAP_METHOD(getSimpleGrayscalePixels,
     
     //UIColor *pixelColor = [image colorAtPixel:point];
     //callback(@[[NSNull null], hexStringForColor(pixelColor)]);
-    NSString *thingToReturn = @"Hello World!";
-    resolve(thingToReturn);
-    // resolve(@[[NSNull null], pixels);
+    //NSString *thingToReturn = @"Hello World!";
+    // resolve(thingToReturn);
+    resolve(pixels);
 }
 
 NSString * hexStringForColor( UIColor* color ) {
