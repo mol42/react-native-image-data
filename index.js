@@ -16,23 +16,31 @@ const ReactNativeImageData = {
 
     getSimpleGrayscalePixelsAsXYMatrix : (imagePath, {scaledWidth, scaledHeight}) => {
         
-        let imagePixelsArray = RNReactNativeImageDataWrapper.getSimpleGrayscalePixels(imagePath, {scaledWidth, scaledHeight});
-        let imageXYMatrix = [];
+        return new Promise((resolve, reject) => {
 
-        for (let i = 0; i < scaledWidth; i++) {
-            imageXYMatrix[i] = [];
-        }
+            ReactNativeImageData.getSimpleGrayscalePixels(imagePath, {scaledWidth, scaledHeight})
+                    .then((imagePixelsArray) => {
 
-        let index = 0;
+                        let imageXYMatrix = [];
+    
+                        for (let i = 0; i < scaledWidth; i++) {
+                            imageXYMatrix[i] = [];
+                        }
+                
+                        let index = 0;
+                
+                        for (let i = 0; i < scaledWidth; i++) {
+                            for (let j = 0; j < scaledHeight; j++) {
+                                imageXYMatrix[j][i] = imagePixelsArray[index++];
+                            }
+                        }
+                
+                        resolve(imageXYMatrix);
+                    })
+                    .catch(() => {reject()});
+        })
 
-        for (let i = 0; i < scaledWidth; i++) {
-            for (let j = 0; j < scaledHeight; j++) {
-                imageXYMatrix[j][i] = imagePixelsArray[index++];
-            }
-        }
-
-        return imageXYMatrix;
     }
 }
 
-export default {ReactNativeImageData};
+export default ReactNativeImageData;
