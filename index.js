@@ -35,4 +35,4 @@ const RNReactNativeImageDataWrapper = {
     }
 }
 
-export default RNReactNativeImageDataWrapper;
+export default {RNReactNativeImageDataWrapper};
